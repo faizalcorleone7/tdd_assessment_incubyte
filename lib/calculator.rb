@@ -9,6 +9,7 @@ class Calculator
   def add(input_string)
     validate_input_characters(input_string)
     parse(input_string)
+    validate_derived_numbers
     calculate_sum
   end
 
@@ -43,6 +44,10 @@ class Calculator
     sum = 0
     numbers.each { |number| sum = sum + number }
     sum
+  end
+
+  def validate_derived_numbers
+    @numbers.each { |number| raise ArgumentError, "negatives not allowed - #{number}" if number < 0 }
   end
 
 end
