@@ -56,6 +56,14 @@ RSpec.describe Calculator do
         expect(calculator.add("#{number}#{suffix_spaces}")).to  eq(number)
       end
 
+      it 'should give same number as input if only one number in input, with prefix and suffix spaces' do
+        calculator = Calculator.new
+        number = rand(100)
+        prefix_spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
+        suffix_spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
+        expect(calculator.add("#{prefix_spaces}#{number}#{suffix_spaces}")).to  eq(number)
+      end
+
     end
   end
 end
