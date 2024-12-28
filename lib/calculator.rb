@@ -21,13 +21,30 @@ class Calculator
     derive_numbers(numbers_string)
   end
 
+  def validate_post_delimiter_derivation(numbers_string)
+    return unless numbers_string.include?(delimiter)
+    last_segment = numbers_string.split(delimiter).reverse.first
+    raise ArgumentError if all_whitespace?(last_segment)
+  end
+
+  def all_whitespace?(string)
+    string.each_char.all? { |char| char.match?(/\s/) }
+  end
+
   def derive_delimiter(numbers_string)
     parsed_delimiter = nil
     if numbers_string.include?("//")
       segments = numbers_string.split("//")
-      parsed_delimiter = segments[1].split("\n").first
+      lines = segments[1].split("\n")
+      parsed_delimiter = lines.first
+      remaining_lines = lines[1..-1].join("\n")
     end
     @delimiter = parsed_delimiter || ","
+    if parsed_delimiter.nil?
+      validate_post_delimiter_derivation(numbers_string)
+    else
+      validate_post_delimiter_derivation(remaining_lines) if !remaining_lines.nil? && remaining_lines.length > 0
+    end
   end
 
   def derive_numbers(numbers_string)
