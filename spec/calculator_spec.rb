@@ -161,12 +161,20 @@ RSpec.describe Calculator do
         expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers[0]}"
       end
 
-      it "should have list all negative numbers" do
+      it "should list all negative numbers in error message" do
         calculator = Calculator.new
         data_generator = SpecUtils::NumberAndSumGenerator.new(rand(1...10))
         data_generator.generate_negative_numbers_data
         expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers.join(",")}"
       end
+
+      it "should not have any whitespace as suffix after comma" do
+        calculator = Calculator.new
+        number = rand(1..100)
+        suffix_spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(1..100))
+        expect{ calculator.add("#{number},#{suffix_spaces}") }.to  raise_error StandardError
+      end
+
     end
 
     context "Semantic restrictions" do
