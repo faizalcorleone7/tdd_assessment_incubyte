@@ -21,12 +21,16 @@ RSpec.describe Calculator do
         expect(calculator.add("#{data_generator.numbers.join(',')}")).to eq(data_generator.final_sum)
       end
 
-      it 'adds numbers which have comma and spaces between them' do
+      it 'should add numbers even if newlines are present between commas' do
         calculator = Calculator.new
-        data_generator = SpecUtils::NumberAndSumGenerator.new(2)
+        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(100))
         data_generator.generate_test_data
-        spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100), " ")
-        expect(calculator.add("#{data_generator.numbers[0]}," + spaces +  "#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
+        input_string = ""
+        data_generator.numbers.each_with_index do |number, index|
+          input_string = input_string + number.to_s + SpecUtils::WhiteSpaceStringGenerator.generate(rand(10), "\n")
+          input_string = input_string + "," if index < data_generator.numbers.length - 1
+        end
+        expect(calculator.add(input_string)).to  eq(data_generator.final_sum)
       end
 
       it 'should give 0 if no number in input, with or without any whitelines' do
