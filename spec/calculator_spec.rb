@@ -13,6 +13,13 @@ RSpec.describe Calculator do
         data_generator.generate_test_data
         expect(calculator.add("#{data_generator.numbers[0]},#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
       end
+
+      it 'adds any number of numbers which have only comma between them' do
+        calculator = Calculator.new
+        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
+        data_generator.generate_test_data
+        expect(calculator.add("#{data_generator.numbers.join(',')}")).to eq(data_generator.final_sum)
+      end
     end
   end
 end
