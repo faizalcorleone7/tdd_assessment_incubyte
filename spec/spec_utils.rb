@@ -63,7 +63,7 @@ module SpecUtils
 
   class AlphaNumberStringGenerator < RandomStringGenerator
     def self.character_set
-      ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', '}', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/']
+      ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', '}', '|', ':', ';', '<', '>', ',', '.', '?']
     end
   end
 
@@ -83,7 +83,7 @@ module SpecUtils
     end
 
     def definition
-      return delimiters.first if delimiters.length == 1
+      return delimiters.first || "," if delimiters.length == 1 || delimiters.length.zero?
       "[#{delimiters.join("][")}]"
     end
 
