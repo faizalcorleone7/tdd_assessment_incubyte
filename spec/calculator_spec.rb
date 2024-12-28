@@ -155,10 +155,17 @@ RSpec.describe Calculator do
 
       it "should have no negative number" do
         calculator = Calculator.new
-        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
+        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(1...10))
         data_generator.generate_test_data
         data_generator.numbers[0] = (-1) * data_generator.numbers[0]
         expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers[0]}"
+      end
+
+      it "should have list all negative numbers" do
+        calculator = Calculator.new
+        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(1...10))
+        data_generator.generate_negative_numbers_data
+        expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers.join(",")}"
       end
     end
   end

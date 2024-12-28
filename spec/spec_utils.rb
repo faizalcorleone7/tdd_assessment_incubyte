@@ -14,12 +14,18 @@ module SpecUtils
       calculate_sum
     end
 
+    def generate_negative_numbers_data
+      generate_numbers(true)
+    end
+
     private
 
-    def generate_numbers
+    def generate_numbers(negative=false)
       no_of_numbers.times {
         # rand is non-negative by default, in case code is reviewed
-        @numbers << rand(1..100)
+        number = rand(1..100)
+        number = number * (-1) if negative
+        @numbers << number
       }
     end
 
