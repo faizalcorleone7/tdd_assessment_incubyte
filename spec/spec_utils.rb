@@ -61,4 +61,36 @@ module SpecUtils
     end
   end
 
+  class AlphaNumberStringGenerator < RandomStringGenerator
+    def self.character_set
+      ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/']
+    end
+  end
+
+  class MultipleDelimiterGenerator
+    def self.generate(no_of_delimiters)
+      delimiter_chars = []
+      no_of_delimiters.times{ delimiter_chars << AlphaNumberStringGenerator.generate(1) }
+      MultipleDelimiter.new(delimiter_chars)
+    end
+  end
+
+  class MultipleDelimiter
+
+    attr_reader :delimiters
+    def initialize(delimiters)
+      @delimiters = delimiters
+    end
+
+    def definition
+      return delimiters.first if delimiters.length == 1
+      "[#{delimiters.join("][]")}]"
+    end
+
+    def apply_random_delimiter
+      index = rand(0..delimiters.length - 1) rescue 0
+      delimiters[index]
+    end
+  end
+
 end
