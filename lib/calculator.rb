@@ -60,7 +60,7 @@ class Calculator
   end
 
   def derive_numbers
-    @numbers = numbers_string.split(delimiter).map(&:to_i)
+    @numbers = numbers_string.gsub("\n", ",").split(delimiter).map(&:to_i)
   end
 
   def validate_input_characters
