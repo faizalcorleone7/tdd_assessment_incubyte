@@ -1,9 +1,10 @@
 class Calculator
 
-  attr_reader :delimiter, :numbers
+  attr_reader :delimiter, :numbers, :negative_numbers
 
   def initialize
     @numbers = []
+    @negative_numbers = []
   end
 
   def add(input_string)
@@ -47,7 +48,8 @@ class Calculator
   end
 
   def validate_derived_numbers
-    @numbers.each { |number| raise ArgumentError, "negatives not allowed - #{number}" if number < 0 }
+    @numbers.each { |number| @negative_numbers.push(number) if number < 0 }
+    raise ArgumentError, "negatives not allowed - #{negative_numbers.join(",")}" if negative_numbers.length > 0
   end
 
 end
