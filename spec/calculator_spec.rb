@@ -69,5 +69,24 @@ RSpec.describe Calculator do
       end
 
     end
+
+    context "when adding number which have a different delimiter" do
+      def random_non_alphanumeric_character(delimiter_length=1)
+        non_alphanumeric_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/']
+        delimiter_string = ""
+        delimiter_length.times { delimiter_string << non_alphanumeric_characters[rand(non_alphanumeric_characters.length)] }
+        delimiter_string
+      end
+
+      let(:delimiter) { random_non_alphanumeric_character }
+
+      it 'simple addition of two numbers which have only custom delimiter between them' do
+        calculator = Calculator.new
+        data_generator = SpecUtils::NumberAndSumGenerator.new(2)
+        data_generator.generate_test_data
+        expect(calculator.add("//#{delimiter}\n#{data_generator.numbers[0]}#{delimiter}#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
+      end
+
+    end
   end
 end
