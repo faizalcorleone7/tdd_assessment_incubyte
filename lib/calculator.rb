@@ -7,12 +7,9 @@ class Calculator
   end
 
   def add(input_string)
+    validate_input_characters(input_string)
     parse(input_string)
-    sum = 0
-    numbers.each { |number|
-      sum = sum + number
-    }
-    sum
+    calculate_sum
   end
 
   private
@@ -33,6 +30,19 @@ class Calculator
 
   def derive_numbers(numbers_string)
     @numbers = numbers_string.split(delimiter).map(&:to_i)
+  end
+
+  def validate_input_characters(numbers_string)
+    alphabetic_pattern = /[a-zA-Z]/
+    numbers_string.each_char do |number|
+      raise ArgumentError if number =~ alphabetic_pattern
+    end
+  end
+
+  def calculate_sum
+    sum = 0
+    numbers.each { |number| sum = sum + number }
+    sum
   end
 
 end
