@@ -157,7 +157,7 @@ RSpec.describe Calculator do
         calculator = Calculator.new
         data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
         data_generator.generate_test_data
-        data_generator.numbers[0] = -data_generator.numbers[0]
+        data_generator.numbers[0] = (-1) * data_generator.numbers[0]
         expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers[0]}"
       end
     end
