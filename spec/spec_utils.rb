@@ -29,17 +29,30 @@ module SpecUtils
 
   end
 
-  class WhiteSpaceStringGenerator
-    WHITESPACE_CHARACTERS = [" ", "\t", "\n", "\r", "\f", "\v"]
+  class RandomStringGenerator
+
     def self.generate(no_of_times, whitespace=nil)
       final_string = ""
       no_of_times.times {
         if whitespace.nil?
-          whitespace = WHITESPACE_CHARACTERS[rand(WHITESPACE_CHARACTERS.length)]
+          whitespace = character_set[rand(character_set.length)]
         end
         final_string = final_string + whitespace
       }
       final_string
     end
   end
+
+  class WhiteSpaceStringGenerator < RandomStringGenerator
+    def self.character_set
+      [" ", "\t", "\n", "\r", "\f", "\v"]
+    end
+  end
+
+  class AlphabetStringGenerator < RandomStringGenerator
+    def self.character_set
+      ('a'..'z').to_a
+    end
+  end
+
 end

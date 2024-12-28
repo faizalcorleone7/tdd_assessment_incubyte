@@ -144,4 +144,15 @@ RSpec.describe Calculator do
 
     end
   end
+
+  describe "Restricted cases" do
+    context "Incorrect characters" do
+      it "should have no alphabet in number string" do
+        calculator = Calculator.new
+        input_string = SpecUtils::AlphabetStringGenerator.generate(rand(100))
+        expect(calculator.add(input_string)).to raise_an ArgumentError
+      end
+    end
+  end
+
 end
