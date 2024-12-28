@@ -29,6 +29,12 @@ RSpec.describe Calculator do
         expect(calculator.add("#{data_generator.numbers[0]}," + spaces +  "#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
       end
 
+      it 'should give 0 if no number in input, with or without any whitelines' do
+        calculator = Calculator.new
+        spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
+        expect(calculator.add(spaces)).to  eq(0)
+        expect(calculator.add("")).to  eq(0)
+      end
     end
   end
 end
