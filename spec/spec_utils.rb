@@ -71,7 +71,7 @@ module SpecUtils
     def self.generate(no_of_delimiters)
       delimiter_chars = []
       no_of_delimiters.times{ delimiter_chars << AlphaNumberStringGenerator.generate(1) }
-      MultipleDelimiter.new(delimiter_chars)
+      MultipleDelimiter.new(delimiter_chars.uniq)
     end
   end
 
@@ -84,12 +84,12 @@ module SpecUtils
 
     def definition
       return delimiters.first if delimiters.length == 1
-      "[#{delimiters.join("][]")}]"
+      "[#{delimiters.join("][")}]"
     end
 
     def apply_random_delimiter
-      index = rand(0..delimiters.length - 1) rescue 0
-      delimiters[index]
+      index = rand(0..delimiters.length - 1)
+      delimiters[index] rescue delimiters[0]
     end
   end
 
