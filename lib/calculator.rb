@@ -43,7 +43,7 @@ class Calculator
 
   def calculate_sum
     sum = 0
-    numbers.each { |number| sum = sum + number }
+    numbers.each { |number| sum = sum + number if number < 1000 }
     sum
   end
 
