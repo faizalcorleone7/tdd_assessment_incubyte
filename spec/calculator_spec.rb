@@ -127,6 +127,13 @@ RSpec.describe Calculator do
         expect(calculator.add("//#{delimiter}\n#{prefix_spaces}#{number}")).to  eq(number)
       end
 
+      it 'should give same number as input if only one number in input, with only suffix spaces' do
+        calculator = Calculator.new
+        number = rand(100)
+        suffix_spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
+        expect(calculator.add("//#{delimiter}\n#{number}#{suffix_spaces}")).to  eq(number)
+      end
+
     end
   end
 end
