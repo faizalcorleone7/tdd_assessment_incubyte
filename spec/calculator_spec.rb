@@ -150,7 +150,7 @@ RSpec.describe Calculator do
       it "should have no alphabet in number string" do
         calculator = Calculator.new
         input_string = SpecUtils::AlphabetStringGenerator.generate(rand(100))
-        expect(calculator.add(input_string)).to raise_an ArgumentError
+        expect {calculator.add(input_string) }.to raise ArgumentError
       end
     end
   end
