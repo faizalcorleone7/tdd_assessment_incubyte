@@ -112,6 +112,13 @@ RSpec.describe Calculator do
         expect(calculator.add("//#{delimiter}\n")).to  eq(0)
       end
 
+      it 'should give same number as input if only one number in input, without whitespaces in prefix and suffix' do
+        calculator = Calculator.new
+        number = rand(100)
+        input_string = "//#{delimiter}\n#{number}"
+        expect(calculator.add(input_string)).to  eq(number)
+      end
+
     end
   end
 end
