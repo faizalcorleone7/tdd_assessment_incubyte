@@ -28,4 +28,18 @@ module SpecUtils
     end
 
   end
+
+  class WhiteSpaceStringGenerator
+    WHITESPACE_CHARACTERS = [" ", "\t", "\n", "\r", "\f", "\v"]
+    def self.generate(no_of_times, whitespace=nil)
+      final_string = ""
+      no_of_times.times {
+        if whitespace.nil?
+          whitespace = WHITESPACE_CHARACTERS[rand(WHITESPACE_CHARACTERS.length)]
+        end
+        final_string = final_string + whitespace
+      }
+      final_string
+    end
+  end
 end
