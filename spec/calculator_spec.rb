@@ -168,6 +168,21 @@ RSpec.describe Calculator do
         expect {calculator.add("#{data_generator.numbers.join(',')}") }.to raise_error ArgumentError, "negatives not allowed - #{data_generator.numbers.join(",")}"
       end
     end
+
+    context "Semantic restrictions" do
+      it "should ignore values above 1000" do
+        calculator = Calculator.new
+        below_thousand_data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
+        above_thousand_data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
+        below_thousand_data_generator.generate_test_data
+        above_thousand_data_generator.generate_test_data
+        above_1000_numbers = []
+        above_thousand_data_generator.numbers.each { |number|
+          above_1000_numbers.push(number * 1000)
+        }
+        expect(calculator.add("#{below_thousand_data_generator.numbers.join(",")},#{above_1000_numbers.join(",")}")).to eq(below_thousand_data_generator.final_sum)
+      end
+    end
   end
 
 end
