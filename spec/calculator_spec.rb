@@ -102,6 +102,13 @@ RSpec.describe Calculator do
         expect(calculator.add("//#{delimiter}\n#{data_generator.numbers.join(delimiter)}")).to eq(data_generator.final_sum)
       end
 
+      it 'adds any number of numbers which have only multi-character custom delimiter between them' do
+        calculator = Calculator.new
+        data_generator = SpecUtils::NumberAndSumGenerator.new(rand(10))
+        data_generator.generate_test_data
+        expect(calculator.add("//#{multiple_length_delimtier}\n#{data_generator.numbers.join(multiple_length_delimtier)}")).to eq(data_generator.final_sum)
+      end
+
       it 'adds numbers even if newlines are present between custom delimiters' do
         calculator = Calculator.new
         data_generator = SpecUtils::NumberAndSumGenerator.new(rand(100))
