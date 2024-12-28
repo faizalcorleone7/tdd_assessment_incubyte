@@ -110,6 +110,7 @@ RSpec.describe Calculator do
         calculator = Calculator.new
         spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
         expect(calculator.add("//#{delimiter}\n")).to  eq(0)
+        expect(calculator.add("//#{delimiter}\n#{spaces}")).to eq(0)
       end
 
       it 'should give same number as input if only one number in input, without whitespaces in prefix and suffix' do
