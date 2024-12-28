@@ -79,12 +79,20 @@ RSpec.describe Calculator do
       end
 
       let(:delimiter) { random_non_alphanumeric_character }
+      let(:multiple_length_delimtier) { random_non_alphanumeric_character(rand(100)) }
 
-      it 'simple addition of two numbers which have only custom delimiter between them' do
+      it 'performs simple addition of two numbers which have only custom delimiter between them' do
         calculator = Calculator.new
         data_generator = SpecUtils::NumberAndSumGenerator.new(2)
         data_generator.generate_test_data
         expect(calculator.add("//#{delimiter}\n#{data_generator.numbers[0]}#{delimiter}#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
+      end
+
+      it 'performs simple addition of two numbers which have only multi-character custom delimiter between them' do
+        calculator = Calculator.new
+        data_generator = SpecUtils::NumberAndSumGenerator.new(2)
+        data_generator.generate_test_data
+        expect(calculator.add("//#{multiple_length_delimtier}\n#{data_generator.numbers[0]}#{multiple_length_delimtier}#{data_generator.numbers[1]}")).to eq(data_generator.final_sum)
       end
 
       it 'adds any number of numbers which have only custom delimiter between them' do
