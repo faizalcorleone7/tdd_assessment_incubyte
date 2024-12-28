@@ -70,7 +70,7 @@ RSpec.describe Calculator do
 
     end
 
-    context "when adding number which have a different delimiter" do
+    context "when adding numbers with input which have one custom delimiter" do
       def random_non_alphanumeric_character(delimiter_length=1)
         non_alphanumeric_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/']
         delimiter_string = ""
@@ -168,6 +168,10 @@ RSpec.describe Calculator do
         suffix_spaces = SpecUtils::WhiteSpaceStringGenerator.generate(rand(100))
         expect(calculator.add("//#{delimiter}\n#{prefix_spaces}#{number}#{suffix_spaces}")).to  eq(number)
       end
+
+    end
+
+    context "when adding numbers with input which has multiple custom delimiters" do
 
     end
   end
